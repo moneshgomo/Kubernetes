@@ -1,0 +1,16 @@
+# Simple pod creation
+# https://kubernetes.io/docs/concepts/workloads/pods/
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    env: demo
+    type: frontend
+spec:
+  container:
+    - name: nginx-container
+      image: nginx
+      ports:
+        - containerPort: 80
