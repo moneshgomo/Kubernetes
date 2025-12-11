@@ -1,0 +1,108 @@
+## ReplicaSet
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+    name: task-nginx
+    labels:
+        env: task-app
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            env: task-app
+    template:
+        metadata:
+            labels:
+                env: task-app
+        spec:
+            containers:
+                - name: nginx
+                  image: nginx
+    
+    
+---
+
+
+## Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: nginx
+  labels:
+    tier: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: v1       
+  template:
+    metadata:
+      labels:
+        app: v1     
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.23.0
+
+            
+kubectl set image deploy/nginx nginx=nginx:1.23.4
+
+
+kubectl annotate deploy/nginx   kubernetes.io/change-cause="Pick up patch version"
+
+kubectl rollout undo deployment/nginx --to-revision=1
+
+
+---
+
+## ToubeleShooting
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+  labels:
+    env: demo
+spec:
+  template:
+    metadata:
+      labels:
+        env: demo
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        ports:
+        - containerPort: 80
+  replicas: 3
+  selector:
+    matchLabels:
+      env: demo
+      
+      
+## 2nd yaml
+
+apiVersion: v1
+kind:  Deployment
+metadata:
+  name: nginx-deploy
+  labels:
+    env: demo
+spec:
+  template:
+    metadata:
+      labels:
+        env: demo
+      name: nginx
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        ports:
+        - containerPort: 80
+  replicas: 3
+  selector:
+    matchLabels:
+      env: dev
