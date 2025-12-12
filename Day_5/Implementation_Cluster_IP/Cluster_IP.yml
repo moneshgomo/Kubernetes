@@ -1,0 +1,19 @@
+# https://kubernetes.io/docs/concepts/services-networking/service
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: cluster-svc
+  labels:
+    env: demo
+spec:
+  type: ClusterIP  # the default service name is also cluster ip not mandatory to mention but good practice
+  selector:
+    env: demo   # teh cluster IP get the deployment where exposed with env: demo label
+  ports:
+    - port: 80
+      targetPort: 80
+
+
+# Default service name is also clusterIP
