@@ -1,0 +1,40 @@
+# Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: myapp
+    labels:
+        app: task-3
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: task-3
+    template:
+        metadata:
+            labels:
+                app: task-3
+    spec:
+        containers:
+            - name: nginx-task-3
+              image: nginx:1.23.4-alpine
+              ports:
+                - containerPort: 80
+                
+
+# Service (  default Cluster_IP )
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: cluster-svc-task-3
+    labels:
+        app: task-3
+spec:
+    type: ClusterIP
+    selector:
+        app: task-3
+    ports:
+        - port: 80
+          targetPort: 80
