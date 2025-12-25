@@ -6,3 +6,4 @@
 - DAY 3 : Kubernetes Pods
 - DAY 4 : Kubernetes ( rc , rs , deploy )
 - DAY 5 : Kubernetes Services
+- DAY 6 : Kubernetes namespaces
