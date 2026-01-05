@@ -1,12 +1,14 @@
-FROM python:3.12-slim
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 
 WORKDIR /app
+COPY Calculator/. .
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN mvn clean package -DskipTests
 
-COPY app.py .
+FROM eclipse-temurin:17-jre-alpine
 
-EXPOSE 5000
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 
-CMD ["python", "app.py"]
+EXPOSE 8081
+ENTRYPOINT ["java", "-jar", "app.jar"]
