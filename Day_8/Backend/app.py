@@ -1,8 +1,9 @@
-# app.py
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import os
 
 app = Flask(__name__)
+CORS(app)  # Allow all origins (for dev/testing)
 
 # Optional: use config from environment (simulating ConfigMap / Secret)
 APP_NAME = os.getenv("APP_NAME", "Flask Calculator")
