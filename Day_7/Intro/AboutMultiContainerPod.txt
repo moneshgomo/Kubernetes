@@ -1,0 +1,51 @@
+| Aspect             | Init Container    | Sidecar Container    |
+| ------------------ | ----------------- | -------------------- |
+| Purpose            | Setup / prepare   | Assist / enhance     |
+| Execution time     | Before app        | During app runtime   |
+| Runs continuously  | No                | Yes                  |
+| Blocks app startup | Yes               | No                   |
+| Typical tasks      | Migrations, waits | Logs, metrics, proxy |
+| Failure impact     | App won’t start   | App may degrade      |
+
+
+Use this decision rule:
+
+If it must happen BEFORE the app starts → Init Container
+If it must happen WHILE the app runs → Sidecar
+
+This rule works 99% of the time.
+
+---
+
+
+Why Not Just Put Everything Inside the App?
+
+Because Kubernetes promotes:
+
+Single Responsibility Principle
+Immutable images
+Operational separation
+
+Benefits:
+
+Smaller images
+Cleaner code
+Independent evolution
+Better reliability
+
+
+----
+
+Pod:
+├── init-container: flyway-migrate
+├── app-container: spring-boot-api
+└── sidecar-container: log-shipper
+
+---
+
+Common Beginner Mistakes
+
+Using sidecar to wait for DB ❌
+Running migrations inside app ❌
+Putting business logic in sidecar ❌
+Using init containers for long-running tasks ❌
