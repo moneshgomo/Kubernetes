@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: flask-multi-pod
+spec:
+  volumes:
+    - name: shared-data
+      emptyDir: {}
+
+  initContainers:
+    - name: prepare-data
+      image: busybox
+      command:
+        - sh
+        - -c
+        - |
+          echo "Hello from Init Container" > /shared/message.txt
+      volumeMounts:
+        - name: shared-data
+          mountPath: /shared
+
+  containers:
+    - name: flask-app
+      image: moneshgomo/flask-multi:2.0
+      ports:
+        - containerPort: 5000
+      volumeMounts:
+        - name: shared-data
+          mountPath: /shared
+
+    - name: sidecar-logger
+      image: busybox
+      command:
+        - sh
+        - -c
+        - |
+          while true; do
+            echo "Sidecar sees: $(cat /shared/message.txt)"
+            sleep 5
+          done
+      volumeMounts:
+        - name: shared-data
+          mountPath: /shared
