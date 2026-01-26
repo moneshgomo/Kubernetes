@@ -7,3 +7,4 @@
 - DAY 4 : Kubernetes ( rc , rs , deploy )
 - DAY 5 : Kubernetes Services
 - DAY 6 : Kubernetes namespaces
+- Day 7 : MultiPod Container , init . sidecar ( helper )
