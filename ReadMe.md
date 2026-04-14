@@ -8,4 +8,5 @@
 - DAY 5 : Kubernetes Services
 - DAY 6 : Kubernetes namespaces
 - Day 7 : MultiPod Container , init . sidecar ( helper )
-- Day 8 : Kubernetes services deep dive 
+- Day 8 : Kubernetes services deep dive ( bending )
+- Say 9 : BackendIQ Kubernetes ```yaml```  manifest 
