@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: quiz-frontend
-          image: moneshgomo/quizfrontend:dev
+          image: moneshgomo/frontend-quiz-app:dev
           ports:
             - containerPort: 3000
           env:

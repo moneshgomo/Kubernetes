@@ -1,30 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: question-service
+  name: quiz-service
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: question-service
+      app: quiz-service
   template:
     metadata:
       labels:
-        app: question-service
+        app: quiz-service
     spec:
       containers:
-        - name: question-service
-          image: moneshgomo/questionservice:dev
+        - name: quiz-service
+          image: moneshgomo/quiz-service:dev
           ports:
-            - containerPort: 8081
+            - containerPort: 8082
           env:
             - name: SERVER_PORT
-              value: "8081"
+              value: "8082"
             - name: DB_URL
               valueFrom:
                 configMapKeyRef:
                   name: db-config
-                  key: QUESTION_DB_URL
+                  key: QUIZ_DB_URL
             - name: DB_USERNAME
               valueFrom:
                 configMapKeyRef:
@@ -41,11 +41,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: question-service
+  name: quiz-service
 spec:
   type: ClusterIP
   selector:
-    app: question-service
+    app: quiz-service
   ports:
-    - port: 8081
-      targetPort: 8081
+    - port: 8082
+      targetPort: 8082

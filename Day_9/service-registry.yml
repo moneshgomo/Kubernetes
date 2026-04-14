@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: service-registry
-          image: moneshgomo/serviceregistry:dev
+          image: moneshgomo/service-registry:dev
           ports:
             - containerPort: 8761
 ---

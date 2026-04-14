@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: moneshgomo/apigateway:dev
+          image: moneshgomo/api-gateway:dev
           ports:
             - containerPort: 8080
           env:
