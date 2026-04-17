@@ -1,3 +1,0 @@
-https://github.com/iam-veeramalla/Docker-Zero-to-Hero.git
-
-moneshgomo/kubernetes-series-deep-dive:service-deep-dive
